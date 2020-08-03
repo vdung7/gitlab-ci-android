@@ -32,7 +32,7 @@ RUN apt-get -qq update \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN apt-get update \
-    && apt-get -y -o Dpkg::options::="--force-overwrite" install openjdk-9-jre \
+    && apt-get -o Dpkg::Options::="--force-overwrite" install openjdk-9-jdk \
     && rm -rf /var/lib/apt/lists/*
     
 RUN locale-gen en_US.UTF-8
