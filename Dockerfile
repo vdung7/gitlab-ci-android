@@ -22,7 +22,6 @@ RUN apt-get -qq update \
       curl \
       git-core \
       html2text \
-      openjdk-9-jdk \
       libc6-i386 \
       lib32stdc++6 \
       lib32gcc1 \
@@ -31,6 +30,11 @@ RUN apt-get -qq update \
       unzip \
       locales \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN apt-get update \
+    && apt-get -y install openjdk-9-jre \
+    && rm -rf /var/lib/apt/lists/*
+    
 RUN locale-gen en_US.UTF-8
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
