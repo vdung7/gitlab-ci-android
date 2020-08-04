@@ -22,6 +22,7 @@ RUN apt-get -qq update \
       curl \
       git-core \
       html2text \
+      openjdk-8-jdk \
       libc6-i386 \
       lib32stdc++6 \
       lib32gcc1 \
@@ -30,9 +31,6 @@ RUN apt-get -qq update \
       unzip \
       locales \
  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
-RUN apt-get -o Dpkg::Options::="--force-overwrite" install openjdk-9-jdk \
-    && rm -rf /var/lib/apt/lists/*
     
 RUN locale-gen en_US.UTF-8
 ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
@@ -57,3 +55,7 @@ RUN mkdir -p /root/.android \
 
 RUN while read -r package; do PACKAGES="${PACKAGES}${package} "; done < /sdk/packages.txt \
  && ${ANDROID_SDK_ROOT}/cmdline-tools/tools/bin/sdkmanager --sdk_root=${ANDROID_SDK_ROOT} ${PACKAGES}
+
+RUN curl -s https://download.java.net/java/GA/jdk9/9.0.4/binaries/openjdk-9.0.4_linux-x64_bin.tar.gz > /openjdk9.tar.gz \
+ && mkdir -p /usr/java && tar zxvf /openjdk9.tar.gz -C /usr/java
+ENV JAVA9_HOME='/usr/java/jdk-9.0.4'
