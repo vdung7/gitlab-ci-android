@@ -57,5 +57,7 @@ RUN while read -r package; do PACKAGES="${PACKAGES}${package} "; done < /sdk/pac
  && ${ANDROID_SDK_ROOT}/cmdline-tools/tools/bin/sdkmanager --sdk_root=${ANDROID_SDK_ROOT} ${PACKAGES}
 
 RUN curl -s https://download.java.net/java/GA/jdk9/9.0.4/binaries/openjdk-9.0.4_linux-x64_bin.tar.gz > /openjdk9.tar.gz \
- && mkdir -p /usr/java && tar zxvf /openjdk9.tar.gz -C /usr/java
+ && mkdir -p /usr/java && tar zxvf /openjdk9.tar.gz -C /usr/java \
+ && rm -v /openjdk9.tar.gz \
+ && cp /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/security/cacerts /usr/java/jdk-9.0.4/lib/security/cacerts
 ENV JAVA9_HOME='/usr/java/jdk-9.0.4'
